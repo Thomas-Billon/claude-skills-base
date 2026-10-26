@@ -4,6 +4,15 @@
 $skillsDirectory = Join-Path $env:USERPROFILE '.claude\skills'
 New-Item -ItemType Directory -Force -Path $skillsDirectory | Out-Null
 
+# INFO: Removes the junctions pointing to a deleted skill of this repo. Junctions of other repos are left untouched.
+Get-ChildItem -Path $skillsDirectory -Force |
+    Where-Object { $_.LinkType -eq 'Junction' -and $_.Target -like "$PSScriptRoot\*" -and -not (Test-Path $_.Target) } |
+    ForEach-Object {
+        # INFO: Remove-Item on a junction can delete the content of its target, rmdir only removes the link
+        cmd /c rmdir $_.FullName
+        Write-Host "Removed: $($_.Name)"
+    }
+
 Get-ChildItem -Path $PSScriptRoot -Directory |
     Where-Object { Test-Path (Join-Path $_.FullName 'SKILL.md') } |
     ForEach-Object {

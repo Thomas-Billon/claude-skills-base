@@ -24,6 +24,7 @@ Une fois par machine, **relançable sans risque** :
 ```
 
 - 🔗 Crée les **jonctions** des skills
+- 🧹 Supprime les jonctions des skills **supprimés** du repo
 - 📄 Crée le `CLAUDE.md` du repo s'il n'existe pas (vide) et son **relais**
 - 🌐 Ajoute la base comme remote **`upstream`**
 
