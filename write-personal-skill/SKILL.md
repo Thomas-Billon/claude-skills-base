@@ -44,9 +44,6 @@ Crée la jonction du nouveau skill (idempotent pour les autres).
 
 ## 4. Proposer le commit
 
-À la fin, que le skill soit créé ou modifié, afficher dans le terminal un rappel et proposer un message :
-
-> 💾 Pense à commit le repo claude-skills. Message proposé : `Added logging rules`
-> Je commit & push ?
+À la fin, que le skill soit créé ou modifié, demander à l'utilisateur s'il veut commit & push le repo claude-skills.
 
 Sans confirmation explicite : aucun commit, aucun push.
