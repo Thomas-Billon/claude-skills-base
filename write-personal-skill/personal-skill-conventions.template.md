@@ -26,6 +26,7 @@ These conventions govern the user's personal skills. They do not apply to `write
 - English. Code identifiers and domain terms stay exactly as they appear in code.
 - An existing skill not yet written in English keeps its language for a single-rule change. A rewrite switches it to English.
 - `SKILL.md` stays under 500 lines and states every rule with a short ✅ / ❌ example, so a rule applies even when no reference file is read.
+- `SKILL.md` also stays under 5,000 tokens: after a context compaction, Claude Code keeps only the first 5,000 tokens of a skill and drops the rest. Measure it after every change (tiktoken `cl100k_base` gives a close estimate). Close to the limit, move long examples or reasons to `references/` before adding a rule. Move, never delete: whatever leaves `SKILL.md` lands in a reference file.
 - Long examples, edge cases and sources go in `references/<topic>.md`. Plan this folder as soon as the user announces many examples or sources.
 - Each reference file is linked directly from `SKILL.md`, with when to read it: "Before writing an EF query, read `references/ef.md`." A reference file never links to another one. A reference file over 100 lines starts with a table of contents.
 - Code examples are **always generic** (`Order`, `Customer`, `Invoice`…): never taken from or inspired by a project's code, with no real class, table, field or business rule name. This holds **even when the rule comes from code just corrected in a project**, and even when the user offers that code as the example.
