@@ -54,6 +54,12 @@ No change ships untested, whatever its size or the time pressure.
 - Run the "without" runs before writing the skill or the change.
 - For the "without" run, turn the skill off (`skillOverrides: "off"`) or give the subagent the previous version explicitly.
 - Subagents work on a copy of the repo outside it, never on the repo itself. Test outputs stay outside the repo.
+- The test cases themselves are kept in the skill's `tests/` folder, one file per case. A later change reruns them before adding its own.
+- A test case file holds the request given to the agent, word for word, then a checks table (rule | pass when). Each check is unambiguous: the request names the types and values the check relies on.
+- The agent under test reads the version under test from its file path, never through the Skill tool, which loads the installed version.
+- Subagents cannot launch subagents: the main session runs every test.
+- Grade blind: the grader gets the runs under anonymous names, never which version produced them.
+- A single failing run proves nothing: rerun it before drawing a conclusion.
 - Report a test that did not run as not run. Never present it as passed.
 
 | Excuse | Reality |
