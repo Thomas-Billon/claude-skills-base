@@ -55,6 +55,19 @@ if (-not (Test-Path $globalClaudeMdPath)) {
     Write-Warning "$globalClaudeMdPath already exists with a different content: merge it into the CLAUDE.md of the repo, delete it, then run the script again"
 }
 
+# INFO: The base repo ships no personal-skill-conventions.md, conventions are personal: it is created from the template on first install.
+# Idempotent: an existing file is kept as is, even when the template changes.
+
+$conventionsPath = Join-Path $PSScriptRoot 'personal-skill-conventions.md'
+$conventionsTemplatePath = Join-Path $PSScriptRoot 'write-personal-skill\personal-skill-conventions.template.md'
+
+if (Test-Path $conventionsPath) {
+    Write-Host "Present: personal-skill-conventions.md"
+} else {
+    Copy-Item $conventionsTemplatePath $conventionsPath
+    Write-Host "Created: personal-skill-conventions.md (from the template)"
+}
+
 # INFO: Adds the base repo as the upstream remote, to merge its updates. Skipped when the repo is the base itself.
 # Idempotent: a correct upstream is kept, an upstream pointing elsewhere is reported and left untouched.
 

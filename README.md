@@ -11,6 +11,7 @@ Skills Claude Code personnels, partagés entre tous les projets.
 |---------|------|----------------------------|
 | `<nom>/SKILL.md` | Un skill par dossier | Jonction dans `%USERPROFILE%\.claude\skills` |
 | `CLAUDE.md` | Règles globales, valables dans tous les projets | Relais `%USERPROFILE%\.claude\CLAUDE.md` qui l'importe |
+| `personal-skill-conventions.md` | Règles d'écriture et de test des skills perso | Lu par `write-personal-skill` avant toute écriture |
 
 > [!IMPORTANT]
 > Le relais ne fait qu'importer : c'est **le `CLAUDE.md` du repo** qu'il faut éditer.
@@ -26,11 +27,14 @@ Une fois par machine, **relançable sans risque** :
 - 🔗 Crée les **jonctions** des skills
 - 🧹 Supprime les jonctions des skills **supprimés** du repo
 - 📄 Crée le `CLAUDE.md` du repo s'il n'existe pas (vide) et son **relais**
+- 📐 Crée `personal-skill-conventions.md` s'il n'existe pas, à partir du **modèle** de la base
 - 🌐 Ajoute la base comme remote **`upstream`**
 
 ## Créer ou modifier un skill
 
 Le demander à Claude : le skill **`write-personal-skill`** s'en charge, et installe le skill à sa création.
+
+Il suit les règles de **`personal-skill-conventions.md`** : méthode d'écriture, nommage, langue, tests. Ce fichier est propre à chaque repo perso : le réécrire librement. La base ne le livre jamais, et ses mises à jour n'y touchent pas.
 
 ## Base commune
 
@@ -38,7 +42,7 @@ L'outillage vient de [claude-skills-base](https://github.com/Thomas-Billon/claud
 
 | Vient de la base | Propre à chaque repo perso |
 |------------------|----------------------------|
-| `install.ps1`, `write-personal-skill`, ce README | Skills, `CLAUDE.md` |
+| `install.ps1`, `write-personal-skill`, ce README | Skills, `CLAUDE.md`, `personal-skill-conventions.md` |
 
 Les mises à jour de la base se récupèrent donc **sans conflit**, tant que ses fichiers ne sont pas modifiés localement :
 
