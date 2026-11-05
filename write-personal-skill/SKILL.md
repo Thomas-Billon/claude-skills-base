@@ -1,49 +1,45 @@
 ---
 name: write-personal-skill
-description: Crée ou modifie un skill perso de l'utilisateur dans son repo claude-skills. DÉCLENCHER avant toute écriture dans un skill perso — création d'un skill, ajout ou modification d'une règle, d'un exemple ou d'une section dans un skill existant, y compris quand une règle transverse formulée par l'utilisateur doit y être consignée.
+description: Repository, conventions file, installation and git handling for the user's personal skills, kept in a claude-skills git repo and loaded through junctions. Use when creating a personal skill or changing an existing one in any way (rule, example, section, description, name), including when a cross-project rule stated by the user must be recorded in a skill.
 ---
 
-# Écrire un skill perso
+# Writing a personal skill
 
-Ce skill s'applique à la création **et** à toute modification d'un skill perso. L'étape 3 ne concerne que la création.
+Applies to creating **and** changing a personal skill, however small the change.
 
-Les skills perso vivent dans le repo git `claude-skills`, un dossier `<nom>/SKILL.md` par skill, et sont chargés par Claude Code via une jonction dans `%USERPROFILE%\.claude\skills`.
+## 1. Find the repo
 
-## 1. Retrouver le repo
+Personal skills live in the `claude-skills` git repo, one `<name>/SKILL.md` folder per skill, loaded by Claude Code through a junction in `%USERPROFILE%\.claude\skills`.
 
-Ne jamais écrire le chemin du repo en dur : le déduire de la jonction de ce skill.
+Never hardcode the repo path. Derive it from this skill's junction:
 
 ```powershell
 $repo = Split-Path (Get-Item "$env:USERPROFILE\.claude\skills\write-personal-skill").Target
 ```
 
-## 2. Écrire ou modifier le skill
+## 2. Read the user's conventions
 
-Créer `$repo\<nom>\SKILL.md`, ou éditer le fichier existant :
+Before writing anything, read `$repo\personal-skill-conventions.md` in full. It holds the user's method, naming, writing and testing rules: follow it for the whole task.
 
-- `<nom>` en kebab-case, décrivant l'action ou le domaine (`python-writing-style`, `deploy-checklist`).
-- Frontmatter obligatoire :
-  ```yaml
-  ---
-  name: <nom>
-  description: <ce que fait le skill>. DÉCLENCHER <quand exactement>.
-  ---
-  ```
-- La `description` est le seul texte vu avant chargement : elle doit dire précisément **quand** déclencher le skill, pas seulement ce qu'il contient.
-- Le corps : règles et procédure, concises, en français. Pas de chemin en dur vers un élément du repo.
-- Exemples de code **toujours génériques** (`Order`, `Customer`, `Document`…), jamais extraits ni inspirés d'un code existant d'un projet : aucun nom de classe, de table, de champ ou de règle métier réel. Vaut aussi pour tout enrichissement d'un skill existant, **y compris quand la règle naît d'une correction faite à l'instant dans un projet** : le code qui vient d'être corrigé ne sert jamais d'exemple.
-- **Skill autonome** : il ne mentionne aucun autre skill, ni pour lui déléguer une étape (« suivre le skill X »), ni pour en exiger le chargement, ni comme exemple. Chaque skill se déclenche seul, par sa propre description. Si un skill a besoin de règles portées par un autre, élargir la description de ce dernier pour qu'il se déclenche aussi dans ce cas, plutôt que de dupliquer ses règles.
+The file is missing: run `& "$repo\install.ps1"`, which creates it from the base template, then read it.
 
-## 3. Installer (création uniquement)
+## 3. Git and installation
 
-```powershell
-& "$repo\install.ps1"
-```
+- The user manages the repo history. Make no change to the git index: no `git add`, `git mv`, `git rm`, commit or push. Rename a folder with a plain file move.
+- After a creation or a rename, run `& "$repo\install.ps1"`: it creates the new junctions and removes those of deleted or renamed skills.
+- After a rename, also update every mention of the old name in the repo (other skills' descriptions, `CLAUDE.md`, `README.md`, `personal-skill-conventions.md`).
 
-Crée la jonction du nouveau skill (idempotent pour les autres).
+## 4. Report and propose the commit
 
-## 4. Proposer le commit
+At the end, report:
 
-À la fin, que le skill soit créé ou modifié, demander à l'utilisateur s'il veut commit & push le repo claude-skills.
+1. what changed, file by file;
+2. what the conventions file required (tests included) and what was done, with results;
+3. anything that departs from the user's request, with why.
 
-Sans confirmation explicite : aucun commit, aucun push.
+Then ask the user whether to commit & push the claude-skills repo. No commit, no push without explicit confirmation.
+
+## Red flags — stop
+
+- About to write in a skill without having read `personal-skill-conventions.md`.
+- About to run a git command other than a read (`status`, `diff`, `log`).
