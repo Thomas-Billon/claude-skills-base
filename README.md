@@ -16,6 +16,8 @@ Skills Claude Code personnels, partagés entre tous les projets.
 > [!IMPORTANT]
 > Le relais ne fait qu'importer : c'est **le `CLAUDE.md` du repo** qu'il faut éditer.
 
+Prérequis et skills propres à ce repo : voir [`SKILLS.md`](SKILLS.md).
+
 ## Installation
 
 Une fois par machine, **relançable sans risque** :
@@ -42,7 +44,7 @@ L'outillage vient de [claude-skills-base](https://github.com/Thomas-Billon/claud
 
 | Vient de la base | Propre à chaque repo perso |
 |------------------|----------------------------|
-| `install.ps1`, `write-personal-skill`, ce README | Skills, `CLAUDE.md`, `personal-skill-conventions.md` |
+| `install.ps1`, `write-personal-skill`, ce README | Skills, `CLAUDE.md`, `personal-skill-conventions.md`, `SKILLS.md` |
 
 Les mises à jour de la base se récupèrent donc **sans conflit**, tant que ses fichiers ne sont pas modifiés localement :
 
