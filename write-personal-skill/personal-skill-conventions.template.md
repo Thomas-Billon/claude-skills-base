@@ -11,7 +11,7 @@ These conventions govern the user's personal skills. They do not apply to `write
 ## Name
 
 - Lowercase letters, digits and single hyphens, 64 characters at most, identical to the folder name.
-- The family comes first, then the specific part: `coding-style-csharp`, `specs-propose`, `worktree-finish`. A family's shared rules take the bare family name: `coding-style`.
+- The family comes first, then the specific part: `report-style-sql`, `deploy-azure`, `release-notes`. A family's shared rules take the bare family name: `report-style`.
 - Before creating a skill, look for its family: the prefix its sibling skills share. Siblings that share only a suffix (`csharp-writing-style`, `angular-writing-style`) form no family yet: build the family name from what they cover (`coding-style-sql`), and propose renaming the siblings.
 - A name the user proposes that breaks these rules: before creating or renaming anything, point it out with the compliant alternative and wait for the user's choice.
 
